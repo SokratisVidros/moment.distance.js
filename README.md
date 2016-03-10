@@ -76,10 +76,12 @@ moment.duration(1, 'years').add(9, 'months').distance()
 moment.duration(3, 'years').add(9, 'days').add(30, 'minutes').add(5, 'seconds').distance()
 // 'about 3 years'
 
-// Leap years
+// No leap year
 
 moment.duration(moment('2015-03-1').diff(moment('2015-02-27'))).distance()
 // '2 days'
+
+// Leap year
 
 moment.duration(moment('2016-03-1').diff(moment('2016-02-27'))).distance()
 // '3 days'
