@@ -1,7 +1,7 @@
 {
   "name": "moment.distance",
   "version": "1.0.0",
-  "description": "A Ruby on Rails inspired time_ago_in_words plugin for moment.js",
+  "description": "A 'distance of time in words' plugin for moment.js inspired by Ruby on Rails.",
   "keywords": [
     "moment",
     "duration",
