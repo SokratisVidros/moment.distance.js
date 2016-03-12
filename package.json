@@ -27,7 +27,7 @@
     "url": "https://github.com/SokratisVidros/moment.distance.js/issues"
   },
   "peerDependencies": {
-    "moment": ">=2"
+    "moment": ">=2.8.0"
   },
   "devDependencies": {
     "babel-cli": "6.6.5",
@@ -36,7 +36,7 @@
     "babel-register": "6.6.5",
     "chai": "3.5.0",
     "mocha": "2.4.5",
-    "moment": ">=2",
+    "moment": ">=2.8.0",
     "uglify-js": "2.6.2"
   },
   "browserify": {

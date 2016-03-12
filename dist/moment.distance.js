@@ -100,10 +100,10 @@
   var MINUTES_IN_THREE_QUARTERS_YEAR = 394200;
 
   if (typeof _moment2.default.updateLocale == 'function') {
-    // For moment >= v2.8.1
     _moment2.default.updateLocale('en', { distance: { phrasing: _localeEn.phrasing, pluralSuffix: _localeEn.pluralSuffix } });
+  } else if (typeof _moment2.default.locale == 'function') {
+    _moment2.default.locale('en', { distance: { phrasing: _localeEn.phrasing, pluralSuffix: _localeEn.pluralSuffix } });
   } else {
-    // For moment < v2.8.1
     _moment2.default.lang('en', { distance: { phrasing: _localeEn.phrasing, pluralSuffix: _localeEn.pluralSuffix } });
   }
 
