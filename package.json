@@ -1,6 +1,6 @@
 {
   "name": "moment.distance",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A 'distance of time in words' plugin for moment.js inspired by Ruby on Rails.",
   "keywords": [
     "moment",
