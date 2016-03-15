@@ -1,56 +1,37 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(['exports'], factory);
+    define(['exports', 'moment'], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports);
+    factory(exports, require('moment'));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports);
-    global.format = mod.exports;
+    factory(mod.exports, global.moment);
+    global.momentDistance = mod.exports;
   }
-})(this, function (exports) {
+})(this, function (exports, _moment) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = format;
-  function format() {
-    var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-    var _ref$phrase = _ref.phrase;
-    var phrase = _ref$phrase === undefined ? '' : _ref$phrase;
-    var _ref$count = _ref.count;
-    var count = _ref$count === undefined ? 1 : _ref$count;
-    var _ref$pluralSuffix = _ref.pluralSuffix;
-    var pluralSuffix = _ref$pluralSuffix === undefined ? 's' : _ref$pluralSuffix;
+  var _moment2 = _interopRequireDefault(_moment);
 
-    return phrase.replace(/%d/i, count).replace(/%s/i, count > 1 ? pluralSuffix : '');
-  };
-});
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(['exports'], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports);
-  } else {
-    var mod = {
-      exports: {}
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
     };
-    factory(mod.exports);
-    global.localeEn = mod.exports;
   }
-})(this, function (exports) {
-  'use strict';
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  var pluralSuffix = exports.pluralSuffix = 's';
+  var MINUTES_IN_YEAR = 525600;
+  var MINUTES_IN_QUARTER_YEAR = 131400;
+  var MINUTES_IN_THREE_QUARTERS_YEAR = 394200;
 
-  var phrasing = exports.phrasing = {
+  var pluralSuffix = 's';
+
+  var phrasing = {
     less_than_x_seconds: 'less than %d second%s',
     half_a_minute: 'half a minute',
     less_than_a_minute: 'less than a minute',
@@ -65,47 +46,27 @@
     over_x_years: 'over %d year%s',
     almost_x_years: 'almost %d year%s'
   };
-});
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(['exports', 'moment', './format.js', './locale.en.js'], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports, require('moment'), require('./format.js'), require('./locale.en.js'));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports, global.moment, global.format, global.localeEn);
-    global.momentDistance = mod.exports;
-  }
-})(this, function (exports, _moment, _format, _localeEn) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-  var _moment2 = _interopRequireDefault(_moment);
-
-  var _format2 = _interopRequireDefault(_format);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
-  }
-
-  var MINUTES_IN_YEAR = 525600;
-  var MINUTES_IN_QUARTER_YEAR = 131400;
-  var MINUTES_IN_THREE_QUARTERS_YEAR = 394200;
 
   if (typeof _moment2.default.updateLocale == 'function') {
-    _moment2.default.updateLocale('en', { distance: { phrasing: _localeEn.phrasing, pluralSuffix: _localeEn.pluralSuffix } });
+    _moment2.default.updateLocale('en', { distance: { phrasing: phrasing, pluralSuffix: pluralSuffix } });
   } else if (typeof _moment2.default.locale == 'function') {
-    _moment2.default.locale('en', { distance: { phrasing: _localeEn.phrasing, pluralSuffix: _localeEn.pluralSuffix } });
+    _moment2.default.locale('en', { distance: { phrasing: phrasing, pluralSuffix: pluralSuffix } });
   } else {
-    _moment2.default.lang('en', { distance: { phrasing: _localeEn.phrasing, pluralSuffix: _localeEn.pluralSuffix } });
+    _moment2.default.lang('en', { distance: { phrasing: phrasing, pluralSuffix: pluralSuffix } });
   }
+
+  function format() {
+    var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+    var _ref$phrase = _ref.phrase;
+    var phrase = _ref$phrase === undefined ? '' : _ref$phrase;
+    var _ref$count = _ref.count;
+    var count = _ref$count === undefined ? 1 : _ref$count;
+    var _ref$pluralSuffix = _ref.pluralSuffix;
+    var pluralSuffix = _ref$pluralSuffix === undefined ? 's' : _ref$pluralSuffix;
+
+    return phrase.replace(/%d/i, count).replace(/%s/i, count > 1 ? pluralSuffix : '');
+  };
 
   function translate(key) {
     var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
@@ -117,7 +78,7 @@
       throw new Error('Missing phrase for ' + key);
     }
 
-    return (0, _format2.default)({ phrase: phrase, count: opts.count, pluralSuffix: pluralSuffix });
+    return format({ phrase: phrase, count: opts.count, pluralSuffix: pluralSuffix });
   }
 
   function distance() {
@@ -176,9 +137,6 @@
       output = locale.t('x_months', { count: Math.round(distanceInMinutes / 43200.0) });
     } else {
       // 1 year and more
-
-      // TODO: Handle leap years
-
       var remainder = distanceInMinutes % MINUTES_IN_YEAR;
       var distanceInYears = Math.floor(distanceInMinutes / MINUTES_IN_YEAR);
 
