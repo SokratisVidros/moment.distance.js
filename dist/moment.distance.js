@@ -26,8 +26,8 @@
   }
 
   var MINUTES_IN_YEAR = 525600;
-  var MINUTES_IN_QUARTER_YEAR = 131400;
-  var MINUTES_IN_THREE_QUARTERS_YEAR = 394200;
+  var MINUTES_IN_QUARTER_YEAR = MINUTES_IN_YEAR / 4;
+  var MINUTES_IN_THREE_QUARTERS_YEAR = MINUTES_IN_YEAR * (3 / 4);
 
   var pluralSuffix = 's';
 
@@ -56,20 +56,19 @@
   }
 
   function format() {
-    var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-    var _ref$phrase = _ref.phrase;
-    var phrase = _ref$phrase === undefined ? '' : _ref$phrase;
-    var _ref$count = _ref.count;
-    var count = _ref$count === undefined ? 1 : _ref$count;
-    var _ref$pluralSuffix = _ref.pluralSuffix;
-    var pluralSuffix = _ref$pluralSuffix === undefined ? 's' : _ref$pluralSuffix;
+    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+        _ref$phrase = _ref.phrase,
+        phrase = _ref$phrase === undefined ? '' : _ref$phrase,
+        _ref$count = _ref.count,
+        count = _ref$count === undefined ? 1 : _ref$count,
+        _ref$pluralSuffix = _ref.pluralSuffix,
+        pluralSuffix = _ref$pluralSuffix === undefined ? 's' : _ref$pluralSuffix;
 
     return phrase.replace(/%d/i, count).replace(/%s/i, count > 1 ? pluralSuffix : '');
   };
 
   function translate(key) {
-    var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     var phrase = this._distance.phrasing[key];
     var pluralSuffix = this._distance.pluralSuffix;
@@ -82,7 +81,7 @@
   }
 
   function distance() {
-    var options = arguments.length <= 0 || arguments[0] === undefined ? { includeSeconds: true } : arguments[0];
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { includeSeconds: true };
 
     var locale = this.localeData();
     var distanceInMinutes = Math.round(Math.max(0, this.asMinutes()));
