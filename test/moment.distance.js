@@ -97,8 +97,8 @@ describe('distance', () => {
       expect(moment.duration(1, 'years').add(3, 'days').distance()).to.eq('about 1 year');
       expect(moment.duration(1, 'years').add(9, 'months').distance()).to.eq('almost 2 years');
       expect(moment.duration(3, 'years').add(9, 'days').add(30, 'minutes').add(5, 'seconds').distance()).to.eq('about 3 years');
-      expect(moment.duration(moment('2015-03-1').diff(moment('2015-02-27'))).distance()).to.eq('2 days');
-      expect(moment.duration(moment('2016-03-1').diff(moment('2016-02-27'))).distance()).to.eq('3 days');
+      expect(moment.duration(moment(new Date('2015-03-1')).diff(moment(new Date('2015-02-27')))).distance()).to.eq('2 days');
+      expect(moment.duration(moment(new Date('2016-03-1')).diff(moment(new Date('2016-02-27')))).distance()).to.eq('3 days');
     });
   });
 
